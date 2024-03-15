@@ -1,12 +1,16 @@
 require('dotenv').config({ path: "./.env"})
 import { Request, Response } from 'express';
-const express = require('express');
-const articleRouter = require('./routes/articles');
+import express from 'express';
+import mongoose from 'mongoose';
+import articleRouter from './routes/articles';
 const app = express();
+
+mongoose.connect(process.env.MONGO_DB ?? '');
+
 app.set('view engine', 'ejs');
 
-
 app.use('/articles', articleRouter);
+app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (req: Request, res: Response) => {
   res.send('GET OUTTA HERE!')

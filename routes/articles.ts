@@ -1,4 +1,5 @@
-const expressMod = require('express');
+import expressMod from 'express';
+import ArticleSchema from '../models/article';
 import { Request, Response } from 'express';
 const router = expressMod.Router();
 
@@ -17,7 +18,12 @@ router.get('/new', (req: Request, res: Response) => {
 });
 
 router.post('/', (req: Request, res: Response) => {
-  
+  let article  = new ArticleSchema({
+    title: req.body.title,
+    description: req.body.description,
+    markdown: req.body.markdown
+  });
+
 });
 
-module.exports = router;
+export default router;
